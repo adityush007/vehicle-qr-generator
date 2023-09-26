@@ -11,7 +11,7 @@
 		</li>
 	</ul>
 	<ul class="nav-links">
-		<li><a href="/aboutus">About Us</a></li>
+		<li><a href="/about-us">About Us</a></li>
 		<li><a href="/scan">Scan</a></li>
 		{#if $authUser !== undefined}
 			<li>
