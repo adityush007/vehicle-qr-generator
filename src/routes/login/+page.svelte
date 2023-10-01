@@ -2,15 +2,7 @@
 	import { firebaseAuth } from '$lib/firebase';
 	import { goto } from '$app/navigation';
 	import { authUser } from '$lib/authStore';
-	import {
-		signInWithPopup,
-		GoogleAuthProvider,
-		signInWithPhoneNumber,
-		RecaptchaVerifier,
-		setPersistence,
-		signInWithRedirect,
-		inMemoryPersistence
-	} from 'firebase/auth';
+	import { signInWithPopup, GoogleAuthProvider, signInWithPhoneNumber } from 'firebase/auth';
 	import Icon from '@iconify/svelte';
 
 	function loginWithGoogle() {
@@ -27,9 +19,8 @@
 			})
 			.catch((e) => {
 				console.log(e.toString());
+				goto('/');
 			});
-
-		goto('/');
 	}
 </script>
 
