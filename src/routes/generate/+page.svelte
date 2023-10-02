@@ -5,7 +5,7 @@
 	import { createForm } from 'svelte-forms-lib';
 	import { goto } from '$app/navigation';
 	async function qr(regNo) {
-		const url = `vehicle-qr-generator.vercel.app/qr/${regNo}`;
+		const url = `https://vehicle-qr-generator.vercel.app/qr/${regNo}`;
 		const res = await fetch(`/make-qr/?url=${url}`);
 		let json = await res.json();
 		return json['svg'];
