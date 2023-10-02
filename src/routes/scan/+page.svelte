@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { redirect } from '@sveltejs/kit';
 	import { Html5QrcodeScanner } from 'html5-qrcode';
 	import { onMount } from 'svelte';
 	function onScanFailure(error) {
