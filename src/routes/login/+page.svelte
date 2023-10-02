@@ -15,7 +15,7 @@
 					uid: userCredential.user.uid,
 					email: userCredential.user.uid
 				};
-				goto(`/me`);
+				goto(`/generate`);
 			})
 			.catch((e) => {
 				console.log(e.toString());
