@@ -4,6 +4,8 @@
 	import { setDoc, doc } from 'firebase/firestore/lite';
 	import { createForm } from 'svelte-forms-lib';
 	import { goto } from '$app/navigation';
+	import * as yup from "yup";
+
 	async function qr(regNo) {
 		const url = `https://vehicle-qr-generator.vercel.app/qr/${regNo}`;
 		const res = await fetch(`/make-qr/?url=${url}`);
@@ -21,7 +23,12 @@
 			registrationDate: '',
 			validityEndDate: ''
 		},
-		validate: () => {},
+		validationSchema: yup.object().shape({
+			registrationNumber: yup.string().required(),
+			ownerName: yup.string().required(),
+			color: yup.string().required(),
+			makerName: yup.string().required()
+		}),
 		onSubmit: async (values) => {
 			alert(JSON.stringify(values));
 			setDoc(doc(db, 'qr-codes', values.registrationNumber.toUpperCase()), {
@@ -53,6 +60,9 @@
 					placeholder="Registration number of vehicle"
 					on:change={handleChange}
 				/>
+				{#if $errors.registrationNumber}
+					<small>{$errors.registrationNumber}</small>
+				{/if}
 			</label>
 			<label for="color">
 				Color of vehicle
@@ -63,6 +73,9 @@
 					bind:value={$form.color}
 					on:change={handleChange}
 				/>
+				{#if $errors.color}
+					<small>{$errors.color}</small>
+				{/if}
 			</label>
 		</div>
 		<div class="grid">
@@ -75,6 +88,9 @@
 					bind:value={$form.ownerName}
 					on:change={handleChange}
 				/>
+				{#if $errors.ownerName}
+					<small>{$errors.ownerName}</small>
+				{/if}
 			</label>
 			<label for="make">
 				Maker of vehicle
@@ -85,6 +101,9 @@
 					bind:value={$form.makerName}
 					on:change={handleChange}
 				/>
+				{#if $errors.makerName}
+					<small>{$errors.makerName}</small>
+				{/if}
 			</label>
 		</div>
 		<div class="grid">
