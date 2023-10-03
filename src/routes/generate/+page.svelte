@@ -4,7 +4,7 @@
 	import { setDoc, doc } from 'firebase/firestore/lite';
 	import { createForm } from 'svelte-forms-lib';
 	import { goto } from '$app/navigation';
-	import * as yup from "yup";
+	import * as yup from 'yup';
 
 	async function qr(regNo) {
 		const url = `https://vehicle-qr-generator.vercel.app/qr/${regNo}`;
@@ -24,7 +24,11 @@
 			validityEndDate: ''
 		},
 		validationSchema: yup.object().shape({
-			registrationNumber: yup.string().required(),
+			registrationNumber: yup
+				.string()
+				.min(10, 'Must be 10 Characters Long!')
+				.max(10, 'Must be 10 Characters Long!')
+				.required('Registration Number is Required!'),
 			ownerName: yup.string().required(),
 			color: yup.string().required(),
 			makerName: yup.string().required()
@@ -48,11 +52,11 @@
 </script>
 
 <div class="container">
-	<h3>Enter the details of vehicle</h3>
+	<h3>Enter the Details of Vehicle</h3>
 	<form on:submit|preventDefault={handleSubmit}>
 		<div class="grid">
 			<label for="registration-number">
-				Registration number
+				Registration Number
 				<input
 					type="text"
 					name="registration-number"
@@ -65,7 +69,7 @@
 				{/if}
 			</label>
 			<label for="color">
-				Color of vehicle
+				Color of Vehicle
 				<input
 					type="text"
 					name="color"
@@ -74,13 +78,13 @@
 					on:change={handleChange}
 				/>
 				{#if $errors.color}
-					<small>{$errors.color}</small>
+					<small>{"Vehicle's Color is Required!"}</small>
 				{/if}
 			</label>
 		</div>
 		<div class="grid">
 			<label for="owner">
-				Owner's name
+				Owner's Name
 				<input
 					type="text"
 					name="owner"
@@ -89,11 +93,11 @@
 					on:change={handleChange}
 				/>
 				{#if $errors.ownerName}
-					<small>{$errors.ownerName}</small>
+					<small>{"Owner's Name is Required!"}</small>
 				{/if}
 			</label>
 			<label for="make">
-				Maker of vehicle
+				Maker of Vehicle
 				<input
 					type="text"
 					name="make"
@@ -102,13 +106,13 @@
 					on:change={handleChange}
 				/>
 				{#if $errors.makerName}
-					<small>{$errors.makerName}</small>
+					<small>{"Manufacturer's Name is Required!"}</small>
 				{/if}
 			</label>
 		</div>
 		<div class="grid">
 			<label for="model">
-				Model of vehicle
+				Model of Vehicle
 				<input
 					type="text"
 					name="model"
@@ -118,7 +122,7 @@
 				/>
 			</label>
 			<label for="vehicle-class">
-				Class of vehicle
+				Class of Vehicle
 				<select
 					name="vehicle-class"
 					id="vehicle-class"
@@ -143,7 +147,7 @@
 				/>
 			</label>
 			<label for="date"
-				>Registration validity
+				>Registration Validity
 				<input
 					type="date"
 					id="date"
